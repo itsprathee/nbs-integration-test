@@ -2,7 +2,14 @@
 import Page from './page'
 
 class RemortgagePage extends Page {
+    /**
+    * define elements
+    */
     get pageHeaderText() { return $('#pageBody h1')}
+
+    /**
+     * page specific methods
+     */
 
     // verify page header
     verifyPageHeader(expectedText) {

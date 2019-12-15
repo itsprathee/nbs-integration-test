@@ -2,7 +2,9 @@
 import Page from './page';
 
 class MortgageRatesPage extends Page {
-
+    /**
+    * define elements
+    */
     get nwMortgageRadioBtns() { return $$('[data-nbs-module-id="HaveNationwideMortgage"] [role="radiogroup"]:nth-child(1) [role="radio"] label') }
     get typeOfMortgageRadioBtns() { return $$('[data-nbs-module-id="NationwideMortgageTypeNo"] [role="radiogroup"]:nth-child(1) [role="radio"] label') }
     get propertyValueInput() { return $('[data-nbs-module-id="SearchPropertyValue"]') }
@@ -13,6 +15,13 @@ class MortgageRatesPage extends Page {
     get productFeeCheckbox() { return $('[data-nbs-module-id="product-fee-fee"]') }
     get mortgageTypeFilter() { return $('#newMortgageRatesTypeFilter') }
     get productsNameText() { return $$('#NewMortgageRateTables>div table .notOnMobile>h3') }
+    get moreInfoApplyBtn_5yrs() { return $('[data-product-name="5 yr  Fixed "] a') }
+    get applyBtn_5yrs() { return $('.applyButton [data-productname="5 yr Fixed "]') }
+
+    /**
+     * page specific methods
+     */
+
 
     findMortgageRates(nwMortgage, typeMortgage, propertyValue, mortgageAmt, term) {
         // select do you have nation wide mortgage
@@ -83,13 +92,7 @@ class MortgageRatesPage extends Page {
     }
 
     // Verify filtered results
-    verifyProductResults(data) {
-        // Add expected products in an array
-        let expectedProducts = [];
-        data.forEach( (expectedProduct) => {
-            expectedProducts.push(expectedProduct);
-        })
-
+    verifyProductResults(expectedProducts) {
         // Verify expected product array contains actual product 
         this.productsNameText.forEach( (elem) => {
             let actualProduct = elem.getText();
@@ -100,9 +103,16 @@ class MortgageRatesPage extends Page {
 
     // Click More info and apply and Apply button
     cliclMoreInfoAndApply( product ) {
-        $('[data-product-name="' + product + '"] a').click();
-        $('.applyButton [data-productname="5 yr Fixed "]').scroll();
-        $('.applyButton [data-productname="5 yr Fixed "]').click();
+        
+        switch(product.toLowerCase()) {
+            case '5 yr fixed':
+                this.moreInfoApplyBtn_5yrs.waitForEnabled();
+                this.moreInfoApplyBtn_5yrs.click();
+                this.applyBtn_5yrs.scroll();
+                this.applyBtn_5yrs.click();
+                break;
+
+        }
     }
 
 }

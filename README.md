@@ -23,6 +23,7 @@ Implement the Feature file "src/features/find-mortgage-rate.feature" according t
 - Verify the next page's heading is "Start your remortgage application"
 
 ## Quick start
+run `npm install`
 run `npm start`
 
 ## Notes

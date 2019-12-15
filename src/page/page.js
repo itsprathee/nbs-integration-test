@@ -1,5 +1,8 @@
 
 export default class Page {
+    /**
+    * define elements
+    */
     get mainNavMenu() { return $('div[role="navigation"]') }
     get mortgagesMainMenu() { return $('li#MortgagesNavItem') }
     get newCustomerMortgageRatesSubMenu() { return $('[data-nbs-analytics-options*="New mortgage customers|Mortgage rates"]') }
@@ -9,13 +12,13 @@ export default class Page {
 
     open(path) {
         browser.url(path);
-        this.mainNavMenu.waitForVisible();
+        browser.pause(3000);
     }
 
     // navigate to main menu and click sub  menu
     navigateToMainMenuAndClickSubMenu(mainMenu, subMenu) {
         // navigate to main menu
-        this.mortgagesMainMenu.waitForVisible();
+        this.mainNavMenu.waitForVisible();
         $("=" + mainMenu).moveToObject();
 
         // click sub menu
@@ -23,6 +26,7 @@ export default class Page {
             case 'new mortgage customers: mortgage rates':
                 this.newCustomerMortgageRatesSubMenu.waitForVisible();
                 this.newCustomerMortgageRatesSubMenu.click();
+                break;
         }
     }
  
