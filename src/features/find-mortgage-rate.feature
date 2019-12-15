@@ -5,7 +5,7 @@ Feature: Find a mortgage rate
 
   Scenario: Find mortgage rates
     Given I open the home page
-    When I navigate to New mortgage customer - Mortgage rates page
+    When I navigatge to "Mortgages" > "New mortgage customers: Mortgage rates"
     And I find mortgage rate for the following case
       | Nation wide mortgage | Type of mortgage    | Property value | Mortgage amount | Term |
       | No                   | I'm changing lender | 300000         | 150000          | 30   |

@@ -1,7 +1,7 @@
 
 export default class Page {
-    get mainNavMenu() { return $('div[role="navigation"]')}
-    get mortgagesNavMainMenu() { return $('li#MortgagesNavItem') }
+    get mainNavMenu() { return $('div[role="navigation"]') }
+    get mortgagesMainMenu() { return $('li#MortgagesNavItem') }
     get newCustomerMortgageRatesSubMenu() { return $('[data-nbs-analytics-options*="New mortgage customers|Mortgage rates"]') }
 
     constructor() {
@@ -12,25 +12,19 @@ export default class Page {
         this.mainNavMenu.waitForVisible();
     }
 
-    // hover over main nav menu
-    hoverOverMainNavMenu(mainNavMenu) {
-        this.mortgagesNavMainMenu.waitForVisible();
-        let elem = "=" + mainNavMenu;
-        $(elem).moveToObject();
-        // browser.execute( () => { $(':contains('+mainNavMenu+')').trigger('mouseover');})
-    }
+    // navigate to main menu and click sub  menu
+    navigateToMainMenuAndClickSubMenu(mainMenu, subMenu) {
+        // navigate to main menu
+        this.mortgagesMainMenu.waitForVisible();
+        $("=" + mainMenu).moveToObject();
 
-    // click sub menu 
-    navigateToNewCustomersMortgageRatesPage() {
-        //this.mortgagesNavMainMenu.waitForVisible();
-        //browser.execute( () => { $('#MortgagesNavItem').trigger("mouseover");})
-        this.hoverOverMainNavMenu('Mortgages');
-        let elem1 = "h4=New mortgage customers";
-        let elem2 = "=Mortgage rates"
-        $(elem1).waitForVisible();
-        $(elem1).$('ul').$(elem2).click();
-        //this.newCustomerMortgageRatesSubMenu.click();
+        // click sub menu
+        switch (subMenu.toLowerCase()) {
+            case 'new mortgage customers: mortgage rates':
+                this.newCustomerMortgageRatesSubMenu.waitForVisible();
+                this.newCustomerMortgageRatesSubMenu.click();
+        }
     }
-
+ 
 }
 

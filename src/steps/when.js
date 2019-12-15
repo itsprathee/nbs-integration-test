@@ -2,9 +2,15 @@ import { When } from 'cucumber';
 import HomePage from '../page/home.page';
 import MortgageRatesPage from '../page/mortgageRates.page';
 
-When(/^I navigate to New mortgage customer - Mortgage rates page$/, function () {
+When('I navigatge to {string} > {string}', function (mainMenu, subMenu) {
 
-    HomePage.navigateToNewCustomersMortgageRatesPage();
+    HomePage.navigateToMainMenuAndClickSubMenu(mainMenu, subMenu);
+
+});
+
+When(/^I hover over {string} main menu$/, function (mainMenu) {
+
+    HomePage.hoverOverMainNavMenu(mainMenu);
 
 });
 
