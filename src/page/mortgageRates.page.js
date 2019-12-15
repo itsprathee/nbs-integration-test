@@ -15,7 +15,7 @@ class MortgageRatesPage extends Page {
     get productsNameText() { return $$('#NewMortgageRateTables>div table .notOnMobile>h3') }
 
     findMortgageRates(nwMortgage, typeMortgage, propertyValue, mortgageAmt, term) {
-        // select have nation wide mortgage
+        // select do you have nation wide mortgage
         this.nwMortgageRadioBtns.forEach((radioLabel) => {
             let text = radioLabel.getText();
             if (text.trim() == nwMortgage.trim())
@@ -44,12 +44,10 @@ class MortgageRatesPage extends Page {
         // click find mortgage rate button
         this.findMortgageRateBtn.waitForEnabled();
         this.findMortgageRateBtn.click();
-
-        
         
     }
 
-    // filter results
+    // filter results by types
     filterResultsByType(filterType1, option1) {
         this.mortgageTypeFilter.waitForVisible();
         let filterType = filterType1.toLowerCase().trim();
@@ -84,10 +82,10 @@ class MortgageRatesPage extends Page {
 
     }
 
+    // Verify filtered results
     verifyProductResults(data) {
-
-        let expectedProducts = [];
         // Add expected products in an array
+        let expectedProducts = [];
         data.forEach( (expectedProduct) => {
             expectedProducts.push(expectedProduct);
         })
@@ -100,6 +98,7 @@ class MortgageRatesPage extends Page {
 
     }
 
+    // Click More info and apply and Apply button
     cliclMoreInfoAndApply( product ) {
         $('[data-product-name="' + product + '"] a').click();
         $('.applyButton [data-productname="5 yr Fixed "]').scroll();

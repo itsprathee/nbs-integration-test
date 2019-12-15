@@ -1,8 +1,8 @@
 
 export default class Page {
-    get mainNavMenu() { return $('[data-nbs-module-id="NavMenu"]')}
-    get mortgagesNavMainMenu() { return $('[data-nbs-module-id="MortgagesNavItem"]') }
-    get newCustomerMortgageRatesSubMenu() { return $('[data-nbs-analytics-options*="|New mortgage customers|Mortgage rates"]') }
+    get mainNavMenu() { return $('div[role="navigation"]')}
+    get mortgagesNavMainMenu() { return $('li#MortgagesNavItem') }
+    get newCustomerMortgageRatesSubMenu() { return $('[data-nbs-analytics-options*="New mortgage customers|Mortgage rates"]') }
 
     constructor() {
     }
@@ -12,20 +12,24 @@ export default class Page {
         this.mainNavMenu.waitForVisible();
     }
 
- 
-    navigateToNewCustomersMortgageRatesPage() {
+    // hover over main nav menu
+    hoverOverMainNavMenu(mainNavMenu) {
         this.mortgagesNavMainMenu.waitForVisible();
-        browser.execute( () => { $('#MortgagesNavItem').trigger("mouseover");})
-        this.newCustomerMortgageRatesSubMenu.waitForVisible();
-        this.newCustomerMortgageRatesSubMenu.click();
+        let elem = "=" + mainNavMenu;
+        $(elem).moveToObject();
+        // browser.execute( () => { $(':contains('+mainNavMenu+')').trigger('mouseover');})
     }
 
-    itemSelector(selector, text) {
-        selector.forEach((radio) => {
-            let label = radio.getText();
-            if (label == text)
-                radio.click()
-        })
+    // click sub menu 
+    navigateToNewCustomersMortgageRatesPage() {
+        //this.mortgagesNavMainMenu.waitForVisible();
+        //browser.execute( () => { $('#MortgagesNavItem').trigger("mouseover");})
+        this.hoverOverMainNavMenu('Mortgages');
+        let elem1 = "h4=New mortgage customers";
+        let elem2 = "=Mortgage rates"
+        $(elem1).waitForVisible();
+        $(elem1).$('ul').$(elem2).click();
+        //this.newCustomerMortgageRatesSubMenu.click();
     }
 
 }

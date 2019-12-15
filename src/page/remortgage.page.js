@@ -4,6 +4,7 @@ import Page from './page'
 class RemortgagePage extends Page {
     get pageHeaderText() { return $('#pageBody h1')}
 
+    // verify page header
     verifyPageHeader(expectedText) {
         this.pageHeaderText.waitForVisible();
         const actualText = this.pageHeaderText.getText();
